@@ -40,7 +40,7 @@ def newsscraper(datalength,data):
             for news in contents:
                 newscontainer.append(news.text)
             finalnewscontent = ' '.join(newscontainer)
-            data.append({"Page No": page, "news":{"title": title, "content":finalnewscontent}})
+            data.append({"news":{"title": title, "content":finalnewscontent}})
         params['page']= str(page)
         writetojsonfile(data)
 
