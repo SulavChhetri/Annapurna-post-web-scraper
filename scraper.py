@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import json
 import os
 
+
+#The headers, params are created 
 headers = {
     'authority': 'bg.annapurnapost.com',
     'accept': '*/*',
@@ -26,7 +28,6 @@ def writetojsonfile(data):
 
 def newsscraper(datalength,data):
     for page in range(datalength+1,5):
-        pagelist = []
         r = requests.get('https://bg.annapurnapost.com/api/search', params=params, headers=headers)
         jsonresponse = json.loads(r.content)
         # print(len(jsonresponse['data']['items']))
@@ -39,8 +40,7 @@ def newsscraper(datalength,data):
             for news in contents:
                 newscontainer.append(news.text)
             finalnewscontent = ' '.join(newscontainer)
-            pagelist.append({"title": title, "content":finalnewscontent})
-        data.append({"Page No": page, "news":pagelist})
+            data.append({"Page No": page, "news":{"title": title, "content":finalnewscontent}})
         params['page']= str(page)
         writetojsonfile(data)
 
