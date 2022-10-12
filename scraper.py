@@ -34,13 +34,7 @@ def newsscraper(datalength,data):
         for i in range(len(jsonresponse['data']['items'])):
             title = jsonresponse['data']['items'][i]['title']
             content = jsonresponse['data']['items'][i]['content']
-            soup = BeautifulSoup(content,'html.parser')
-            newscontainer = list()
-            contents = soup.find_all('p')
-            for news in contents:
-                newscontainer.append(news.text)
-            finalnewscontent = ' '.join(newscontainer)
-            data.append({"news":{"title": title, "content":finalnewscontent}})
+            data.append({"news":{"title": title, "content":content}})
         params['page']= str(page)
         writetojsonfile(data)
 
