@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-
+# , "content":content
 #The headers, params are created after converting the cURL(bash) api into python from where the url for api can be used
 headers = {
     'authority': 'bg.annapurnapost.com',
@@ -42,12 +42,12 @@ def newsscraper(datalength,data):
             for i in range(len(jsonresponse['data']['items'])):
                 title = jsonresponse['data']['items'][i]['title']
                 content = jsonresponse['data']['items'][i]['content']
-                data.append({"news":{"title": title, "content":content}})
+                data.append({"news":{"title": title}})
             params['page']= str(page)
+            writetojsonfile(data)
+            #finally the data scraped that is stored in the list data is dumped to the data.json file
         else:
             params['page']= str(page)
-    #finally the data scraped that is stored in the list data is dumped to the data.json file
-    writetojsonfile(data)
 
 
 
